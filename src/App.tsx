@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import UserTable from "./components/users/UserTable/UserTable";
+import UserForm from "./components/users/UserForm/UserForm";
 
 interface User {
     uuid: string;
@@ -18,6 +19,9 @@ const App: React.FC = () => {
         <div className="container">
             <div className="card">
                 <UserTable users={users} />
+            </div>
+            <div className="card">
+                <UserForm />
             </div>
         </div>
     );
