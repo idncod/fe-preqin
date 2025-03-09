@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "./UserTable.module.scss";
 
 interface User {
     uuid: string;
@@ -13,8 +14,8 @@ interface TableProps {
 
 const UserTable: React.FC<TableProps> = ({ users }) => {
     return (
-        <div>
-            <table>
+        <div className={styles.tableContainer}>
+            <table className={styles.table}>
                 <thead>
                 <tr>
                     <th>UUID</th>

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import UserTable from "./components/users/UserTable/UserTable";
 import UserForm from "./components/users/UserForm/UserForm";
+import "./globals.scss";
 
 interface User {
     uuid: string;

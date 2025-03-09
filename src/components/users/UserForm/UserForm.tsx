@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import styles from "./UserForm.module.scss";
 
 
 const UserForm: React.FC = () => {
@@ -15,7 +15,7 @@ const UserForm: React.FC = () => {
     };
 
     return (
-        <div>
+        <div className={styles.formContainer}>
             <form onSubmit={handleSubmit}>
                 <div>
                     <label>UUID:</label>
