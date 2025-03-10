@@ -46,3 +46,9 @@ button {
     background: darken($primary-color, 10%);
   }
 }
+
+.loadingSpinner {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #0073e6;
+}

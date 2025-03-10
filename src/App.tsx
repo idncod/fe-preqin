@@ -15,7 +15,7 @@ const App: React.FC = () => {
 
     const fetchUsers = async () => {
         try {
-            const response = await axios.get<User[]>("http://127.0.0.1:8001/users");
+            const response = await axios.get<User[]>("http://127.0.0.1:8002/users");
             setUsers(response.data);
         } catch (error) {
             console.error("Error fetching properties:", error);
