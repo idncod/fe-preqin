@@ -3,12 +3,18 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
 }
 
 label {
   font-weight: bold;
   color: $text-color;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.field {
+margin-bottom: 15px;
 }
 
 input {
@@ -34,6 +40,7 @@ button {
   border-radius: $border-radius;
   cursor: pointer;
   transition: $transition;
+  margin-top: 10px;
 
   &:hover {
     background: darken($primary-color, 10%);
