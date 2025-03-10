@@ -22,11 +22,11 @@ const UserTable: React.FC<TableProps> = ({ users, onEditUser }) => {
                 <tbody>
                 {users.map((user) => (
                     <tr key={user.uuid}>
-                        <td>{user.uuid}</td>
-                        <td>{user.name}</td>
-                        <td>{user.surname}</td>
-                        <td>{user.email}</td>
-                        <td>
+                        <td data-label="UUID">{user.uuid}</td>
+                        <td data-label="Name">{user.name}</td>
+                        <td data-label="Surname">{user.surname}</td>
+                        <td data-label="Email">{user.email}</td>
+                        <td data-label="Actions">
                             <button onClick={() => onEditUser(user)}>Edit</button>
                         </td>
                     </tr>
