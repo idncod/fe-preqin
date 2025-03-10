@@ -75,6 +75,7 @@ const UserForm: React.FC<FormProps> = ({ handleUserAddedOrUpdated, editingUser }
                         required
                         disabled={!!editingUser}
                         title={editingUser ? "Sorry, can't edit the email. Please create a new user instead." : ""}
+                        className={`${styles.emailInput} ${editingUser ? styles.disabled : ""}`}
                     />
                 </div>
                 <div className={styles.field}>

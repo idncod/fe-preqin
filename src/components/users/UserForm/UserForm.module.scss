@@ -52,3 +52,58 @@ button {
   font-size: 14px;
   color: #0073e6;
 }
+
+.field {
+  margin-bottom: 15px;
+}
+
+.emailInput {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  width: 100%;
+  transition: border-color 0.3s ease;
+
+  &:focus {
+    border-color: #4a90e2;
+  }
+}
+
+.disabled {
+  background-color: #f5f5f5;
+  color: #999;
+  cursor: not-allowed;
+}
+
+.emailInput:disabled {
+  background-color: #f5f5f5;
+  color: #999;
+}
+
+.emailInput[title] {
+  position: relative;
+}
+
+.emailInput[title]:hover::after {
+  content: attr(title);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: white;
+  padding: 5px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 10;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.2s ease;
+}
+
+.emailInput:disabled[title]:hover::after {
+  content: attr(title);
+  opacity: 1;
+}
