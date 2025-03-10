@@ -2,7 +2,7 @@
 
 .tableContainer {
   width: 100%;
-  overflow-x: auto; /* Allow horizontal scrolling */
+  overflow-x: auto;
 }
 
 .table {
@@ -10,7 +10,7 @@
   border-collapse: collapse;
   background: rgba(255, 255, 255, 0.05);
   border-radius: $border-radius;
-  min-width: 600px; /* Minimum width for larger screens */
+  min-width: 600px;
 }
 
 th, td {
@@ -30,15 +30,15 @@ tr:hover {
   transition: $transition;
 }
 
-/* Mobile */
+
 @media (max-width: 480px) {
   .table {
-    min-width: 100%; /* Ensure the table fits smaller screens */
+    min-width: 100%;
     padding: 5px;
   }
 
   thead {
-    display: none; /* Hide headers on mobile */
+    display: none;
   }
 
   tr {
@@ -71,7 +71,6 @@ tr:hover {
   }
 }
 
-/* Tablet */
 @media (max-width: 768px) {
   .table {
     min-width: 100%;
@@ -79,7 +78,7 @@ tr:hover {
   }
 
   thead {
-    display: none; /* Hide table headers on tablets */
+    display: none;
   }
 
   tr {
@@ -110,6 +109,6 @@ tr:hover {
     text-align: center;
   }
   td[data-label="UUID"] {
-    padding-left: 60px; /* Give extra padding to prevent overlap with label */
+    padding-left: 60px;
   }
 }
