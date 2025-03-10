@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./UserTable.module.scss";
 import {User} from "../../../types/User"
+import Button from '../../ui/Button/Button.tsx';
 
 interface TableProps {
     users: User[];
@@ -27,7 +28,9 @@ const UserTable: React.FC<TableProps> = ({ users, onEditUser }) => {
                         <td data-label="Surname">{user.surname}</td>
                         <td data-label="Email">{user.email}</td>
                         <td data-label="Actions">
-                            <button onClick={() => onEditUser(user)}>Edit</button>
+                            <Button type="button" onClick={() => onEditUser(user)} color="edit">
+                                Edit
+                            </Button>
                         </td>
                     </tr>
                 ))}

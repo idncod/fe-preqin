@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styles from "./UserForm.module.scss"
 import {User} from "../../../types/User"
+import Button from '../../ui/Button/Button';
 
 interface FormProps {
     handleUserAddedOrUpdated: (user: User) => void;
@@ -16,6 +17,7 @@ const UserForm: React.FC<FormProps> = ({ handleUserAddedOrUpdated, editingUser }
     const [company, setCompany] = useState<string>("");
     const [jobTitle, setJobTitle] = useState<string>("");
     const [isLoading, setIsLoading] = useState(false);
+    const [cancelMessage, setCancelMessage] = useState<string>("");
 
     useEffect(() => {
         if (editingUser) {
@@ -25,13 +27,18 @@ const UserForm: React.FC<FormProps> = ({ handleUserAddedOrUpdated, editingUser }
             setCompany(editingUser.company || "");
             setJobTitle(editingUser.jobTitle || "");
         } else {
-            setName("");
-            setSurname("");
-            setEmail("");
-            setCompany("");
-            setJobTitle("");
+            resetForm();
         }
     }, [editingUser]);
+
+    const resetForm = () => {
+        setName("");
+        setSurname("");
+        setEmail("");
+        setCompany("");
+        setJobTitle("");
+        setCancelMessage("");
+    };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -47,6 +54,7 @@ const UserForm: React.FC<FormProps> = ({ handleUserAddedOrUpdated, editingUser }
             }
 
             handleUserAddedOrUpdated({ ...userData, uuid: editingUser?.uuid || "" });
+            resetForm();
         } catch (error) {
             console.error("Error saving user:", error);
         }finally {
@@ -54,7 +62,22 @@ const UserForm: React.FC<FormProps> = ({ handleUserAddedOrUpdated, editingUser }
         }
     };
 
-
+    const handleCancel = () => {
+        if (editingUser) {
+            setCancelMessage("Editing canceled, all changes have been discarded.");
+        } else {
+            if (!name && !surname && !email && !company && !jobTitle) {
+                setCancelMessage("All fields are empty, nothing to cancel.");
+            } else {
+                setName("");
+                setSurname("");
+                setEmail("");
+                setCompany("");
+                setJobTitle("");
+                setCancelMessage("");
+            }
+        }
+    };
     return (
         <div className={styles.formContainer}>
             <form onSubmit={handleSubmit}>
@@ -86,8 +109,16 @@ const UserForm: React.FC<FormProps> = ({ handleUserAddedOrUpdated, editingUser }
                     <label>Job Title:</label>
                     <input type="text" value={jobTitle} onChange={(e) => setJobTitle(e.target.value)} required/>
                 </div>
-                <button type="submit">{editingUser ? "Update" : "Add"} User</button>
+                <div className={styles.buttonContainer}>
+                    <Button type="submit" color="primary">
+                        {editingUser ? "Update" : "Add"} User
+                    </Button>
+                    <Button type="button" onClick={handleCancel} color="cancel">
+                        Cancel
+                    </Button>
+                </div>
                 {isLoading && <div className={styles.loadingSpinner}>Loading...</div>}
+                {cancelMessage && <div className={styles.cancelMessage}>{cancelMessage}</div>}
             </form>
         </div>
     );
