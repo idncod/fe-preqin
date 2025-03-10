@@ -1,18 +1,13 @@
 import React from "react";
 import styles from "./UserTable.module.scss";
-
-interface User {
-    uuid: string;
-    name: string;
-    surname: string;
-    email: string;
-}
+import {User} from "../../../types/User"
 
 interface TableProps {
     users: User[];
+    onEditUser: (user: User) => void;
 }
 
-const UserTable: React.FC<TableProps> = ({ users }) => {
+const UserTable: React.FC<TableProps> = ({ users, onEditUser }) => {
     return (
         <div className={styles.tableContainer}>
             <table className={styles.table}>
@@ -31,6 +26,9 @@ const UserTable: React.FC<TableProps> = ({ users }) => {
                         <td>{user.name}</td>
                         <td>{user.surname}</td>
                         <td>{user.email}</td>
+                        <td>
+                            <button onClick={() => onEditUser(user)}>Edit</button>
+                        </td>
                     </tr>
                 ))}
                 </tbody>
