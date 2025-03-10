@@ -2,7 +2,7 @@
 
 .tableContainer {
   width: 100%;
-  overflow-x: auto;
+  overflow-x: auto; /* Allow horizontal scrolling */
 }
 
 .table {
@@ -10,8 +10,7 @@
   border-collapse: collapse;
   background: rgba(255, 255, 255, 0.05);
   border-radius: $border-radius;
-  overflow: hidden;
-  min-width: 600px;
+  min-width: 600px; /* Minimum width for larger screens */
 }
 
 th, td {
@@ -31,21 +30,64 @@ tr:hover {
   transition: $transition;
 }
 
-@media (max-width: 768px) {
+/* Mobile */
+@media (max-width: 480px) {
   .table {
-    border: none;
+    min-width: 100%; /* Ensure the table fits smaller screens */
+    padding: 5px;
   }
 
   thead {
-    display: none;
+    display: none; /* Hide headers on mobile */
   }
 
   tr {
     display: block;
     margin-bottom: 10px;
+    border-radius: $border-radius;
+    padding: 8px;
     border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  td {
+    display: block;
+    text-align: right;
+    position: relative;
+    padding: 5px 10px;
+    border: none;
+  }
+
+  td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 5px;
+    font-weight: bold;
+    color: white;
+    text-align: left;
+  }
+
+  td[data-label="Actions"] {
+    text-align: center;
+  }
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .table {
+    min-width: 100%;
+    padding: 5px;
+  }
+
+  thead {
+    display: none; /* Hide table headers on tablets */
+  }
+
+  tr {
+    display: block;
+    margin-bottom: 10px;
     border-radius: $border-radius;
     padding: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
   }
 
   td {
@@ -53,7 +95,6 @@ tr:hover {
     text-align: right;
     position: relative;
     padding: 8px 12px;
-    border: none;
   }
 
   td::before {
@@ -67,5 +108,8 @@ tr:hover {
 
   td[data-label="Actions"] {
     text-align: center;
+  }
+  td[data-label="UUID"] {
+    padding-left: 60px; /* Give extra padding to prevent overlap with label */
   }
 }

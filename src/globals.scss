@@ -13,17 +13,20 @@ body {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  height: 100vh;
-  overflow: hidden;
+  height: 100%;
+  overflow: auto;
 }
 
 .container {
   display: flex;
+  flex-direction: row;
   gap: 20px;
   padding: 20px;
   max-width: 1200px;
-  overflow-y: auto;
-  height: 90vh;
+  width: 100%;
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  height: auto; /* Adjust height for content overflow */
+  overflow: hidden; /* Prevent horizontal scroll */
 }
 
 .card {
@@ -32,7 +35,55 @@ body {
   padding: 20px;
   backdrop-filter: blur(10px);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  min-width: 300px;
-  max-height: 90vh;
+  max-height: 100%; /* Ensure cards are flexible */
   overflow-y: auto;
+  width: 100%; /* Allow cards to take full width when wrapping */
+  box-sizing: border-box;
+}
+
+.table-card {
+  flex: 1;
+  min-width: 300px; /* Ensure the table doesn't shrink too much */
+  width: 100%;
+}
+
+.form-card {
+  flex: 2;
+  min-width: 300px;
+  width: 100%;
+}
+
+/* Adjust for tablet screens (max-width: 768px) */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    padding: 10px; /* Reduce padding for smaller screens */
+    gap: 10px; /* Reduce gap between the cards */
+  }
+
+  .card {
+    width: 100%;
+    max-width: none; /* Allow cards to take full width */
+  }
+
+  .table-card, .form-card {
+    width: 100%; /* Allow both the table and form to take up the full width */
+  }
+}
+
+/* Adjust for small screens (max-width: 480px) */
+@media (max-width: 480px) {
+  .container {
+    flex-direction: column;
+    padding: 5px; /* Even smaller padding for mobile */
+  }
+
+  .card {
+    padding: 10px; /* Slightly smaller padding for each card */
+  }
+
+  .table-card, .form-card {
+    width: 100%; /* Ensure both take full width on small screens */
+    padding: 10px; /* Optional, if you need space around the table/form */
+  }
 }

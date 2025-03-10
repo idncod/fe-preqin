@@ -58,21 +58,29 @@ const App: React.FC = () => {
     return (
         <div className="container">
             <div className="card">
-                <UserTable users={users} onEditUser={handleEditUser} />
-            </div>
-            <div className="card">
-                <UserForm handleUserAddedOrUpdated={handleUserAddedOrUpdated} editingUser={editingUser} />
+                <div className="table-card">
+                    <UserTable users={users} onEditUser={handleEditUser} />
+                    {loading ? (
+                        <p>Loading...</p>
+                    ) : (
+                        lastEvaluatedKey && (
+                            <button onClick={handleLoadMore}>Load More</button>
+                        )
+                    )}
+                </div>
             </div>
 
-            {loading ? (
-                <p>Loading...</p>
-            ) : (
-                lastEvaluatedKey && (
-                    <button onClick={handleLoadMore}>Load More</button>
-                )
-            )}
+            <div className="card">
+                <div className="form-card">
+                    <UserForm
+                        handleUserAddedOrUpdated={handleUserAddedOrUpdated}
+                        editingUser={editingUser}
+                    />
+                </div>
+            </div>
         </div>
     );
+
 };
 
 export default App;
