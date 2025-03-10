@@ -47,3 +47,14 @@
     background-color: darken(#4caf50, 10%);
   }
 }
+
+@media (max-width: 768px) {
+  .buttonContainer {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .primary {
+    margin-top: 20px;
+  }
+}

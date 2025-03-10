@@ -1,5 +1,11 @@
 @import "../../../styles/variables.scss";
 
+.formContainer {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 15px;
+}
 
 .form {
   display: flex;
@@ -15,7 +21,7 @@ label {
 }
 
 .field {
-margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 
 input {
@@ -67,10 +73,6 @@ input {
   margin-top: 10px;
   font-size: 14px;
   color: #0073e6;
-}
-
-.field {
-  margin-bottom: 15px;
 }
 
 .emailInput {
@@ -141,6 +143,7 @@ input {
     background-color: darken(#4caf50, 10%);
   }
 }
+
 .cancelButton {
   @extend .button;
   background-color: #f44336;
@@ -150,17 +153,50 @@ input {
   }
 }
 
-
-.loadingSpinner {
-  margin-top: 10px;
-  font-size: 14px;
-  color: #0073e6;
-}
-
 .cancelMessage {
   color: #ffd400;
   margin-top: 10px;
   font-size: 14px;
 }
 
+@media (max-width: 768px) {
+  .formContainer {
+    padding: 10px;
+  }
 
+  .form {
+    gap: 10px;
+  }
+
+  .buttonContainer {
+    flex-direction: column;
+    gap: 25px;
+  }
+}
+
+@media (max-width: 480px) {
+  .formContainer {
+    max-width: 100%;
+    padding: 10px;
+  }
+
+  .buttonContainer {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  input {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .button {
+    padding: 10px;
+    font-size: 12px;
+  }
+
+  .loadingSpinner,
+  .cancelMessage {
+    font-size: 12px;
+  }
+}
