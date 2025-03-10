@@ -14,6 +14,7 @@ const UserTable: React.FC<TableProps> = ({ users, onEditUser }) => {
             <table className={styles.table}>
                 <thead>
                 <tr>
+                    <th></th>
                     <th>UUID</th>
                     <th>Name</th>
                     <th>Surname</th>
@@ -23,15 +24,15 @@ const UserTable: React.FC<TableProps> = ({ users, onEditUser }) => {
                 <tbody>
                 {users.map((user) => (
                     <tr key={user.uuid}>
-                        <td data-label="UUID">{user.uuid}</td>
-                        <td data-label="Name">{user.name}</td>
-                        <td data-label="Surname">{user.surname}</td>
+                    <td data-label="Actions">
+                    <Button type="button" onClick={() => onEditUser(user)} color="edit">
+                        Edit
+                    </Button>
+                </td>
+                <td data-label="UUID">{user.uuid}</td>
+                <td data-label="Name">{user.name}</td>
+                <td data-label="Surname">{user.surname}</td>
                         <td data-label="Email">{user.email}</td>
-                        <td data-label="Actions">
-                            <Button type="button" onClick={() => onEditUser(user)} color="edit">
-                                Edit
-                            </Button>
-                        </td>
                     </tr>
                 ))}
                 </tbody>

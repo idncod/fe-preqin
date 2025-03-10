@@ -51,9 +51,9 @@ const UserForm: React.FC<FormProps> = ({ handleUserAddedOrUpdated, editingUser }
 
         try {
             if (editingUser) {
-                await axios.put(`http://127.0.0.1:8002/users/${editingUser.uuid}`, userData);
+                await axios.put(`http://127.0.0.1:8003/users/${editingUser.uuid}`, userData);
             } else {
-                await axios.post("http://127.0.0.1:8002/users", userData);
+                await axios.post("http://127.0.0.1:8003/users", userData);
             }
 
             handleUserAddedOrUpdated({ ...userData, uuid: editingUser?.uuid || "" });
