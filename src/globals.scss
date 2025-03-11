@@ -12,15 +12,27 @@ body {
   color: $text-color;
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 100vh;
+  align-items: flex-start;
+  height: 100%;
+  overflow: auto;
 }
 
 .container {
   display: flex;
+  flex-direction: row;
   gap: 20px;
   padding: 20px;
   max-width: 1200px;
+  width: 100%;
+  flex-wrap: nowrap;
+  height: auto;
+  overflow: hidden;
+}
+
+.table-card, .form-card {
+  flex-shrink: 0;
+  min-width: 300px;
+  width: 100%;
 }
 
 .card {
@@ -29,5 +41,86 @@ body {
   padding: 20px;
   backdrop-filter: blur(10px);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  max-height: 100%;
+  overflow-y: auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.table-card {
+  flex: 1;
   min-width: 300px;
+  width: 100%;
+  padding-bottom: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: $primary-color;
+  color: white;
+  border: none;
+  border-radius: $border-radius;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background-color 0.3s, transform 0.2s ease-in-out;
+  margin-top: 20px;
+  display: inline-block;
+  text-align: center;
+
+  &:hover {
+    background-color: $primary-color-hover;
+    transform: translateY(-2px);
+  }
+
+  &:disabled {
+    background-color: $disabled-color;
+    cursor: not-allowed;
+    transform: none;
+  }
+}
+
+button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5);
+}
+
+.form-card {
+  flex: 2;
+  min-width: 300px;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: row;
+    gap: 20px;
+    padding: 20px;
+    flex-wrap: wrap;
+  }
+
+  .card {
+    width: 100%;
+    max-width: none;
+  }
+
+  .table-card, .form-card {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    flex-direction: column;
+    padding: 5px;
+  }
+
+  .card {
+    padding: 10px;
+  }
+
+  .table-card, .form-card {
+    width: 100%;
+    padding: 10px;
+  }
 }

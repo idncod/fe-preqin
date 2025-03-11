@@ -1,0 +1,61 @@
+@use "sass:color";
+@import "../../../styles/variables.scss";
+
+.button {
+  padding: 12px 15px;
+  color: white;
+  border: none;
+  border-radius: $border-radius;
+  cursor: pointer;
+  font-size: 14px;
+  transition: $transition;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  &:disabled {
+    background-color: #f5f5f5;
+    color: #999;
+    cursor: not-allowed;
+  }
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.primary {
+  background-color: $primary-color;
+
+  &:hover {
+    background-color: color.scale($primary-color, $lightness: -10%);
+  }
+}
+
+.cancel {
+  background-color: #f44336;
+
+  &:hover {
+    background-color: #d32f2f;
+  }
+}
+
+.edit {
+  background-color: #4caf50;
+
+  &:hover {
+    background-color: color.scale(#4caf50, $lightness: -10%);
+  }
+}
+
+@media (max-width: 768px) {
+  .buttonContainer {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .primary {
+    margin-top: 20px;
+  }
+}

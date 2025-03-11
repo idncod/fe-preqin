@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styles from "./UserForm.module.scss"
 import {User} from "../../../types/User"
+import Button from '../../ui/Button/Button';
 
 interface FormProps {
     handleUserAddedOrUpdated: (user: User) => void;
@@ -16,6 +17,8 @@ const UserForm: React.FC<FormProps> = ({ handleUserAddedOrUpdated, editingUser }
     const [company, setCompany] = useState<string>("");
     const [jobTitle, setJobTitle] = useState<string>("");
     const [isLoading, setIsLoading] = useState(false);
+    const [cancelMessage, setCancelMessage] = useState<string>("");
+    const [emailDisabled, setEmailDisabled] = useState<boolean>(false);
 
     useEffect(() => {
         if (editingUser) {
@@ -24,14 +27,21 @@ const UserForm: React.FC<FormProps> = ({ handleUserAddedOrUpdated, editingUser }
             setEmail(editingUser.email);
             setCompany(editingUser.company || "");
             setJobTitle(editingUser.jobTitle || "");
+            setEmailDisabled(true);
         } else {
-            setName("");
-            setSurname("");
-            setEmail("");
-            setCompany("");
-            setJobTitle("");
+            resetForm();
         }
     }, [editingUser]);
+
+    const resetForm = () => {
+        setName("");
+        setSurname("");
+        setEmail("");
+        setCompany("");
+        setJobTitle("");
+        setCancelMessage("");
+        setEmailDisabled(false);
+    };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -41,12 +51,13 @@ const UserForm: React.FC<FormProps> = ({ handleUserAddedOrUpdated, editingUser }
 
         try {
             if (editingUser) {
-                await axios.put(`http://127.0.0.1:8002/users/${editingUser.uuid}`, userData);
+                await axios.put(`http://127.0.0.1:8003/users/${editingUser.uuid}`, userData);
             } else {
-                await axios.post("http://127.0.0.1:8002/users", userData);
+                await axios.post("http://127.0.0.1:8003/users", userData);
             }
 
             handleUserAddedOrUpdated({ ...userData, uuid: editingUser?.uuid || "" });
+            resetForm();
         } catch (error) {
             console.error("Error saving user:", error);
         }finally {
@@ -54,6 +65,19 @@ const UserForm: React.FC<FormProps> = ({ handleUserAddedOrUpdated, editingUser }
         }
     };
 
+    const handleCancel = () => {
+        if (editingUser) {
+            setCancelMessage("Editing canceled, all changes have been discarded.");
+        } else {
+            if (!name && !surname && !email && !company && !jobTitle) {
+                setCancelMessage("All fields are empty, nothing to cancel.");
+            } else {
+
+                setCancelMessage("");
+            }
+        }
+        resetForm();
+    };
 
     return (
         <div className={styles.formContainer}>
@@ -73,8 +97,9 @@ const UserForm: React.FC<FormProps> = ({ handleUserAddedOrUpdated, editingUser }
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
-                        disabled={!!editingUser}
+                        disabled={emailDisabled}
                         title={editingUser ? "Sorry, can't edit the email. Please create a new user instead." : ""}
+                        className={`${styles.emailInput} ${emailDisabled ? styles.disabled : ""}`}
                     />
                 </div>
                 <div className={styles.field}>
@@ -85,8 +110,16 @@ const UserForm: React.FC<FormProps> = ({ handleUserAddedOrUpdated, editingUser }
                     <label>Job Title:</label>
                     <input type="text" value={jobTitle} onChange={(e) => setJobTitle(e.target.value)} required/>
                 </div>
-                <button type="submit">{editingUser ? "Update" : "Add"} User</button>
+                <div className={styles.buttonContainer}>
+                    <Button type="submit" color="primary">
+                        {editingUser ? "Update" : "Add"} User
+                    </Button>
+                    <Button type="button" onClick={handleCancel} color="cancel">
+                        Cancel
+                    </Button>
+                </div>
                 {isLoading && <div className={styles.loadingSpinner}>Loading...</div>}
+                {cancelMessage && <div className={styles.cancelMessage}>{cancelMessage}</div>}
             </form>
         </div>
     );

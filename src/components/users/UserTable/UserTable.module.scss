@@ -1,11 +1,16 @@
 @import "../../../styles/variables.scss";
 
+.tableContainer {
+  width: 100%;
+  overflow-x: auto;
+}
+
 .table {
   width: 100%;
   border-collapse: collapse;
   background: rgba(255, 255, 255, 0.05);
   border-radius: $border-radius;
-  overflow: hidden;
+  min-width: 600px;
 }
 
 th, td {
@@ -23,4 +28,87 @@ th {
 tr:hover {
   background: rgba(255, 255, 255, 0.1);
   transition: $transition;
+}
+
+
+@media (max-width: 480px) {
+  .table {
+    min-width: 100%;
+    padding: 5px;
+  }
+
+  thead {
+    display: none;
+  }
+
+  tr {
+    display: block;
+    margin-bottom: 10px;
+    border-radius: $border-radius;
+    padding: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  td {
+    display: block;
+    text-align: right;
+    position: relative;
+    padding: 5px 10px;
+    border: none;
+  }
+
+  td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 5px;
+    font-weight: bold;
+    color: white;
+    text-align: left;
+  }
+
+  td[data-label="Actions"] {
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .table {
+    min-width: 100%;
+    padding: 5px;
+  }
+
+  thead {
+    display: none;
+  }
+
+  tr {
+    display: block;
+    margin-bottom: 10px;
+    border-radius: $border-radius;
+    padding: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  td {
+    display: block;
+    text-align: right;
+    position: relative;
+    padding: 8px 12px;
+  }
+
+  td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 10px;
+    font-weight: bold;
+    color: white;
+    text-align: left;
+  }
+
+  td[data-label="Actions"] {
+    text-align: center;
+  }
+  td[data-label="UUID"] {
+    padding-left: 60px;
+  }
 }
