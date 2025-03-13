@@ -22,7 +22,12 @@ const App: React.FC = () => {
                 params: { last_evaluated_key: nextPageKey }
             });
 
-            setUsers((prevUsers) => [...prevUsers, ...response.data.users]);
+            setUsers((prevUsers) => {
+                const newUsers = response.data.users.filter(
+                    (newUser) => !prevUsers.some((user) => user.uuid === newUser.uuid)
+                );
+                return [...prevUsers, ...newUsers];
+            });
             setLastEvaluatedKey(response.data.last_evaluated_key);
         } catch (error) {
             console.error("Error fetching users:", error);
